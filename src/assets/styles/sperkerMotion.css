@@ -1,0 +1,57 @@
+
+    .speakerLoud{
+        animation: speaker-loud-animation 1.3s linear infinite;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .speakerModerate {
+        animation: speaker-moderate-animation 1.3s linear infinite;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .speakerQuiet {
+        animation: speaker-quiet-animation 1.3s linear infinite;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    @keyframes speaker-loud-animation {
+        0% {
+            opacity: 0
+        }
+        50% {
+            opacity: 0
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    @keyframes speaker-moderate-animation{
+        0% {
+            opacity: 0
+        }
+        50% {
+            opacity: 1
+        }
+        100% {
+            opacity: 0
+        }
+    }
+    @keyframes speaker-quiet-animation {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: 0
+        }
+        100% {
+            opacity: 0
+        }
+    }
+
+

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar{
+    width: 0;
+  }
+}
+textarea:focus-visible{
+  outline: none;
+}
+.input-bordered{
+  @apply focus:outline-none
+}
+.textarea-bordered{
+  @apply focus:outline-none
+}

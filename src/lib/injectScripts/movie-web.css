@@ -1,0 +1,7 @@
+.pointer-events-none.select-none.text-center{pointer-events: auto !important;user-select: text !important;position:relative}
+.text-white.absolute.flex.w-full.flex-col.items-center{
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: auto !important;
+}
