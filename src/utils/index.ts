@@ -278,7 +278,4 @@ export const parseCollins = (html: string) => {
     });
   return result;
 };
-export const checkIfIgnore = () => {
-  return location.href.includes('words.mywords.cc')
-}
 export const isInPopup = /extension/.test(location.protocol);

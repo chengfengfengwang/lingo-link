@@ -25,6 +25,7 @@ import FallbackComponent from "@/components/FallbackComponent";
 import { ExtensionMessage } from "@/types";
 import onCaptureScreenResult from "@/utils/onCaptureScreenResult";
 import { useAtom } from "jotai";
+import useTreeWalker from "@/hooks/useTreeWalker";
 import CollectModal from "@/components/CollectModal";
 // export default function ConversationProviderWrapper() {
 //   return (
@@ -34,6 +35,8 @@ import CollectModal from "@/components/CollectModal";
 //   );
 // }
 export default function ContentScriptApp() {
+  const mouseoverCollectTimer = useRef<number | null>(null);
+  const hideCardTimer = useRef<number | null>(null);
   const [setting] = useAtom(settingAtom);
   const { i18n } = useTranslation();
   // const {
@@ -52,7 +55,70 @@ export default function ContentScriptApp() {
   const [cardShow, setCardShow] = useState(false);
   const rangeRef = useRef<Range | undefined>(undefined);
   const [searchText, setSearchText] = useState("");
-
+  const showCardAndPosition = useCallback(
+    ({
+      text,
+      position,
+      domRect,
+    }: {
+      text: string;
+      domRect?: DOMRect;
+      position?: { x: number; y: number };
+    }) => {
+      setCardShow(true);
+      setSearchText(text);
+      setTriggerIconShow(false);
+      let x = -300;
+      let y = -300;
+      if (domRect) {
+        const position = preventBeyondWindow({
+          boxWidth: isWord({
+            input: text,
+            lang: setting.sourceLanguage?.language,
+          })
+            ? defaultCardWidth
+            : defaultTranslateWidth,
+          boxHeight: isWord({
+            input: text,
+            lang: setting.sourceLanguage?.language,
+          })
+            ? defaultCardMinHeight
+            : defaultTranslateMinHeight,
+          domRect,
+          gap: 10,
+        });
+        x = position.x;
+        y = position.y;
+      }
+      if (position) {
+        x = position.x;
+        y = position.y;
+      }
+      setCardPosition({ x, y });
+    },
+    [setting.sourceLanguage?.language]
+  );
+  const mouseoverCollectCallback = useCallback(
+    ({ ele }: { ele: HTMLElement }) => {
+     
+      if (mouseoverCollectTimer.current) {
+        clearTimeout(mouseoverCollectTimer.current);
+      }
+      mouseoverCollectTimer.current = window.setTimeout(() => {
+        showCardAndPosition({
+          text: ele.innerText,
+          domRect: ele.getBoundingClientRect(),
+        });
+      }, 300);
+    },
+    [showCardAndPosition]
+  );
+  const onmouseenterCard = useCallback(() => {
+    hideCardTimer.current && clearTimeout(hideCardTimer.current);
+  }, []);  
+  useTreeWalker({
+    mouseoverCallback: mouseoverCollectCallback
+  })
   useEffect(() => {
     const handleMouseUp = async function (event: MouseEvent) {
       if (isSelectionInEditElement()) {
@@ -104,49 +170,7 @@ export default function ContentScriptApp() {
     };
   }, []);
 
-  const showCardAndPosition = useCallback(
-    ({
-      text,
-      position,
-      domRect,
-    }: {
-      text: string;
-      domRect?: DOMRect;
-      position?: { x: number; y: number };
-    }) => {
-      setCardShow(true);
-      setSearchText(text);
-      setTriggerIconShow(false);
-      let x = -300;
-      let y = -300;
-      if (domRect) {
-        const position = preventBeyondWindow({
-          boxWidth: isWord({
-            input: text,
-            lang: setting.sourceLanguage?.language,
-          })
-            ? defaultCardWidth
-            : defaultTranslateWidth,
-          boxHeight: isWord({
-            input: text,
-            lang: setting.sourceLanguage?.language,
-          })
-            ? defaultCardMinHeight
-            : defaultTranslateMinHeight,
-          domRect,
-          gap: 10,
-        });
-        x = position.x;
-        y = position.y;
-      }
-      if (position) {
-        x = position.x;
-        y = position.y;
-      }
-      setCardPosition({ x, y });
-    },
-    [setting.sourceLanguage?.language]
-  );
+  
   const handleTriggerClick = () => {
     showCardAndPosition({
       text: currentSelectionInfo.word,
@@ -240,6 +264,7 @@ export default function ContentScriptApp() {
             x={cardPosition.x}
             y={cardPosition.y}
             onClose={hideCard}
+            onmouseenter={onmouseenterCard}
           >
             <SearchResult collectFormUpdate={handleCollectFormUpdate} searchText={searchText} />
           </CardDragableWrapper>

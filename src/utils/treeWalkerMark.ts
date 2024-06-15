@@ -66,12 +66,10 @@ export const treeWalkerMark = ({
   words,
   mouseoverCallback,
   mouseoutCallback,
-  mouseclickCallback
 }: {
   target: Node;
   words: string[];
   mouseoverCallback?: ({ ele }: { ele: HTMLElement }) => void;
-  mouseclickCallback?: ({ ele }: { ele: HTMLElement }) => void;
   mouseoutCallback?: ()=>void
 }) => {
   //const timer = Date.now() + ''
@@ -170,13 +168,6 @@ export const treeWalkerMark = ({
       const target = event.target as HTMLElement;
       if (target.tagName === "TRANSLATOR-HIGHLIGHT") {
         mouseoutCallback();
-      }
-    });
-    mouseclickCallback && newElement.addEventListener("click", function (event) {
-      if (event.buttons){return}
-      const target = event.target as HTMLElement;
-      if (target.tagName === "TRANSLATOR-HIGHLIGHT") {
-        mouseclickCallback({ ele: target });
       }
     });
     node.replaceWith(newElement);

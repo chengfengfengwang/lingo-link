@@ -14,11 +14,13 @@ export default function DragableWrapper({
   children,
   x,
   y,
+  onmouseenter,
   onClose,
 }: {
   children: React.ReactNode;
   x: number;
   y: number;
+  onmouseenter: () => void;
   onClose: () => void;
 }) {
   const nodeRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +33,18 @@ export default function DragableWrapper({
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    if (onmouseenter) {
+      const contentDom = contentRef.current;
+      const handleMouseEnter = () => {
+        onmouseenter();
+      };
+      contentDom?.addEventListener("mouseenter", handleMouseEnter);
+      return () => {
+        contentDom?.removeEventListener("mouseenter", handleMouseEnter);
+      };
+    }
+  }, [onmouseenter]);
   return (
     <Draggable
       handle=".handle"
