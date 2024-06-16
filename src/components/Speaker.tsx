@@ -7,6 +7,9 @@ import {
 import { sendBackgroundFetch } from "@/utils";
 import {pageClicked} from '@/utils/pageClicked'
 import { isInPopup } from "@/utils";
+if (isInPopup) {
+  import('@/assets/styles/sperkerMotion.css')
+}
 class YoudaoAudio {
   onplay: () => void;
   onended: () => void;
