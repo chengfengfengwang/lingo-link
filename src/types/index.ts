@@ -1,6 +1,5 @@
 import { LangCode, defaultSetting } from "@/utils/const";
 import type { Sww } from "./words";
-import { CardMode } from "@/context/cardMode";
 
 // export interface ExtensionMessage {
 //   type: "fetch" | "auth" | "openOptions" | "captureScreen";
@@ -136,12 +135,6 @@ export type PostMessage =
     }
   | {
       name: "hidePracticeCard";
-    }
-  | {
-      name: "changeCardMode";
-      payload: {
-        mode: CardMode;
-      };
     }
   | {
       name: "practiceWordNext";

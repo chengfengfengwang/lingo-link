@@ -5,7 +5,7 @@ import Translate from "./Translate";
 import Word from "./Word";
 import { currentSelectionInfo } from "../utils";
 import { isWord } from "../utils";
-import type { EngineValue, PostMessage } from "@/types";
+import type { EngineValue } from "@/types";
 import { allSentenceEngineList, allWordEngineList } from "@/utils/const";
 import EngineDropdown from "./EngineDropdown";
 import { ErrorBoundary } from "react-error-boundary";

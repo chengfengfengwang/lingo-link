@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import CardDragableWrapper from "@/components/CardDragableWrapper";
 import { ErrorBoundary } from "react-error-boundary";
 import FallbackComponent from "@/components/FallbackComponent";
-//import { emitter } from "@/utils/mitt";
+import { emitter } from "@/utils/mitt";
 // import { useConversationContext } from "@/context/conversation";
 // import Conversation from "./Conversation";
 // import { ConversationProvider } from "@/context/conversation";
@@ -26,7 +26,6 @@ import { ExtensionMessage } from "@/types";
 import onCaptureScreenResult from "@/utils/onCaptureScreenResult";
 import { useAtom } from "jotai";
 import useTreeWalker from "@/hooks/useTreeWalker";
-import CollectModal from "@/components/CollectModal";
 // export default function ConversationProviderWrapper() {
 //   return (
 //     <ConversationProvider>
@@ -169,7 +168,19 @@ export default function ContentScriptApp() {
       document.removeEventListener("selectionchange", handleSelectionChange);
     };
   }, []);
-
+  useEffect(() => {
+    const hideCard = ()=> setCardShow(false);
+    emitter.on("hideCard", hideCard);
+    return () => {
+      emitter.off("hideCard", hideCard);
+    };
+  }, []);
+  useEffect(() => {
+    emitter.on("showCard", showCardAndPosition);
+    return () => {
+      emitter.off("showCard", showCardAndPosition);
+    };
+  }, [showCardAndPosition]);
   
   const handleTriggerClick = () => {
     showCardAndPosition({
@@ -180,10 +191,7 @@ export default function ContentScriptApp() {
   const hideCard = useCallback(() => {
     setCardShow(false);
   }, []);
-  const handleCollectFormUpdate = (param) => {
-    console.log(param);
-    
-  }
+ 
   useEffect(() => {
     if (setting.interfaceLanguage !== i18n.language) {
       i18n.changeLanguage(
@@ -266,7 +274,7 @@ export default function ContentScriptApp() {
             onClose={hideCard}
             onmouseenter={onmouseenterCard}
           >
-            <SearchResult collectFormUpdate={handleCollectFormUpdate} searchText={searchText} />
+            <SearchResult  searchText={searchText} />
           </CardDragableWrapper>
         )}
       </ErrorBoundary>

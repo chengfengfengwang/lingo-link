@@ -1,4 +1,4 @@
-//import { emitter } from "@/utils/mitt";
+import { emitter } from "@/utils/mitt";
 import styles from './movie-web.css?inline';
 
 const hosts = ["movie-web.app", "movie-web-me.vercel.app", "mw.lonelil.ru"];
@@ -19,10 +19,10 @@ if (hosts.includes(location.host)) {
   trigger.addEventListener("click", function () {
     const captionContainer = getCaptionContainer();
     if (!captionContainer) {return}
-    // emitter.emit("showCard", {
-    //   text: captionContainer.innerText.replace('🖐️', ''),
-    //   domRect: captionContainer.getBoundingClientRect(),
-    // });
+    emitter.emit("showCard", {
+      text: captionContainer.innerText.replace('🖐️', ''),
+      domRect: captionContainer.getBoundingClientRect(),
+    });
   });
   const handleMouseover = () => {
     const captionContainer = getCaptionContainer();
