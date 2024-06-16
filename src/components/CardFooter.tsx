@@ -42,7 +42,7 @@ export default function CardFooter({
           >
             <RotateCcw className={`w-[14px] h-[14px] fill-none`} />
           </span>
-          {currentEngine !== "google" && currentEngine !== "youdao" && (
+          {/* {currentEngine !== "google" && currentEngine !== "youdao" && (
             <span
               onClick={enEnterConversationClick}
               data-tip={t("Enter The Conversation")}
@@ -50,7 +50,7 @@ export default function CardFooter({
             >
               <MessagesSquare className={`w-[14px] h-[14px] fill-none`} />
             </span>
-          )}
+          )} */}
         </div>
         {!isInPopup && ExternalCom}
       </div>
