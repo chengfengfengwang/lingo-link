@@ -4,20 +4,17 @@ import type { Sww } from "@/types/words";
 import Translate from "./Translate";
 import Word from "./Word";
 import { currentSelectionInfo } from "../utils";
-import { removeWord, updateWord } from "@/storage/local";
-import { removeWordApi, updateWordApi } from "@/api";
 import { isWord } from "../utils";
 import type { EngineValue, PostMessage } from "@/types";
 import { allSentenceEngineList, allWordEngineList } from "@/utils/const";
 import EngineDropdown from "./EngineDropdown";
 import { ErrorBoundary } from "react-error-boundary";
 import FallbackComponent from "./FallbackComponent";
-import { removeWordOulu } from "@/api/oulu";
 import { isInPopup } from "@/utils";
 import Login from "./Login";
 import { showLogin } from "./Login";
 import { useAtom } from "jotai";
-import { addSwwAtom, settingAtom, swwListAtom } from "@/store";
+import { addSwwAtom, removeSwwAtom, updateSwwItemAtom, settingAtom, swwListAtom } from "@/store";
 import Browser from "webextension-polyfill";
 import { setSession } from "@/storage/session";
 import { createPortal } from "react-dom";
@@ -30,19 +27,13 @@ import { toastManager } from "./Toast";
 
 export default function TranslateContent({
   searchText,
-  collectFormUpdate,
 }: {
   searchText: string;
-  collectFormUpdate: ({
-    show,
-    collectInfo,
-  }: {
-    show: boolean;
-    collectInfo?: Partial<Sww> | undefined;
-  }) => void;
 }) {
   const [swwList] = useAtom(swwListAtom);
   const [,addSww] = useAtom(addSwwAtom);
+  const [,removeSww] = useAtom(removeSwwAtom);
+  const [,updateSww] = useAtom(updateSwwItemAtom);
   const [setting] = useAtom(settingAtom);
   const [collectInfo, setCollectInfo] = useState<Sww | undefined>(undefined);
   const [currentEngine, setCurrentEngine] = useState<EngineValue | null>(null);
@@ -53,7 +44,18 @@ export default function TranslateContent({
   const divRef = useRef<HTMLDivElement|null>(null);
   const fallbackComRef =
     useRef<React.ComponentRef<typeof FallbackComponent>>(null);
-  
+  const showCollectForm = () => {
+    if (isInPopup) {
+      setCollectShow(true);
+    } else {
+      const root = divRef.current?.getRootNode() as HTMLElement;
+      setCollectShow(true);
+      setContentScriptWrapper(root.querySelector('#orange-translator-container') as HTMLDivElement)
+    }
+  }
+  const closeCollectForm = () => {
+    setCollectShow(false);
+  }
   useEffect(() => {
     const isWordResult = isWord({
       input: searchText,
@@ -100,34 +102,23 @@ export default function TranslateContent({
       return;
     }
     if (collectInfo) {
-      removeWord({ word: searchText });
-      removeWordApi(collectInfo.word);
-      removeWordOulu(collectInfo.word);
+      removeSww(collectInfo)
     } else {
-      const root = divRef.current?.getRootNode() as HTMLElement;
-      setCollectShow(true);
-      setContentScriptWrapper(root.querySelector('#orange-translator-container') as HTMLDivElement)
-      //collectFormUpdate({ show: true, collectInfo: { word: searchText } });
+      showCollectForm()
     }
   };
   const handleMasterClick = () => {
-    if (collectInfo?.masteryLevel === 1) {
-      updateWord({ ...collectInfo, ...{ masteryLevel: 0 } });
-      updateWordApi({ id: collectInfo.id, masteryLevel: 0 });
-    } else {
-      updateWord({ ...collectInfo!, ...{ masteryLevel: 1 } });
-      updateWordApi({ id: collectInfo!.id, masteryLevel: 1 });
-    }
+    const newLevel = collectInfo?.masteryLevel === 1 ? 0 : 1
+    updateSww({ ...collectInfo!, ...{ masteryLevel: newLevel } })
   };
   const handleWeightChange = (num: number) => {
     if (!collectInfo) {
       return;
     }
-    updateWord({ ...collectInfo, ...{ weight: num } });
-    updateWordApi({ id: collectInfo.id, weight: num });
+    updateSww({ ...collectInfo, ...{ weight: num } });
   };
   const handlePencilClick = () => {
-    collectFormUpdate({ show: true, collectInfo });
+    showCollectForm()
   };
   const onRefresh = (type: "translate" | "word") => {
     if (type === "translate") {
@@ -147,8 +138,7 @@ export default function TranslateContent({
       lastEditDate: Date.now(),
       ...formValue,
     };
-    updateWord(item);
-    updateWordApi(item);
+    updateSww(item)
   } else {
     item = {
       id: uuidv4(),
@@ -163,6 +153,7 @@ export default function TranslateContent({
     }
     addSww(item);
   }
+  closeCollectForm()
 };
   const isWordResult = isWord({
     input: searchText,
@@ -219,9 +210,16 @@ export default function TranslateContent({
       </ErrorBoundary>
       <Login />
       {
-        (contentScriptWrapper && collectShow) ? createPortal(<CollectModal>
+        (!isInPopup && contentScriptWrapper && collectShow) ? createPortal(<CollectModal>
           <CollectForm onSubmit={handleCollectSubmit} onCancel={()=>setCollectShow(false)} initialValue={{word:collectInfo?.word || currentSelectionInfo.word, context:collectInfo?.context || currentSelectionInfo.context}}></CollectForm>
         </CollectModal>, contentScriptWrapper) : null
+      }
+      {
+        (isInPopup && collectShow) ? createPortal(
+          <div className="p-3">
+          <CollectForm size="sm" onSubmit={handleCollectSubmit} onCancel={()=>setCollectShow(false)} initialValue={{word:collectInfo?.word || currentSelectionInfo.word, context:collectInfo?.context || currentSelectionInfo.context}}></CollectForm>
+          </div>
+        , document.querySelector('#collect-wrapper')!) : null
       }
     </div>
   );
