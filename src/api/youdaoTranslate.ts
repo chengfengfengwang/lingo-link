@@ -16,7 +16,7 @@ export default async function youdaoTranslate({
       fetchSource = target
     }
     if (!youdaoSupportLang.includes(fetchSource)) {
-      throw new Error(`youdao don\'t support ${fetchSource} as the learn language`);
+      throw new Error(`youdao don't support ${fetchSource} as the learn language`);
     }
     const url = `https://www.youdao.com/result?word=${formateText(
       text
