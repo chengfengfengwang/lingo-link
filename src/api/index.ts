@@ -3,7 +3,6 @@ import type { Sww } from "@/types/words";
 import { getSetting } from "@/storage/sync";
 import { sendBackgroundFetch } from "@/utils";
 import { User } from "@/types";
-import type { BackgroundFetchParam } from "@/types";
 // const baseUrl = 'https://dsg1ijpmsi.hk.aircode.run'
 //const baseUrl = 'http://localhost:8787'
 const baseUrl = "https://api.mywords.cc";
@@ -26,6 +25,7 @@ const request = async (
   options: {
     method?: "GET" | "POST" | "PUT" | "DELETE";
     headers?: Record<string, string>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body?: any;
   }
 ) => {

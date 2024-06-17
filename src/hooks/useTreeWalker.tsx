@@ -1,6 +1,6 @@
 import { swwListAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useEffect, useCallback, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { treeWalkerMark,ignoreTags } from "@/utils/treeWalkerMark";
 const isExtentionPage = location.href.startsWith("chrome-extension");
 const checkIfIgnore = () => {

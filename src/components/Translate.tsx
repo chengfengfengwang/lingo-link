@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-//import YoudaoSpeaker from "./Speaker";
 import { CheckCheck, Heart, Undo2, MessageCircle, Pencil } from "lucide-react";
 import Highlight from "./Highlight";
 import type { Sww } from "@/types/words";

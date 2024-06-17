@@ -1,4 +1,4 @@
-import { RotateCcw, MessagesSquare } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import ExternalLink from "./ExternalLink";
 import { isInPopup } from "@/utils";
@@ -6,7 +6,6 @@ export default function CardFooter({
   currentEngine,
   targetLang,
   onRefresh,
-  enEnterConversationClick,
   sourceLang,
   searchText,
 }: {

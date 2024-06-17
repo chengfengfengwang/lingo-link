@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react"
-import { isWord } from "@/utils";
-import { EngineValue } from "@/types";
 import { getWindowSelectionInfo } from "@/utils";
-import { useAtom } from "jotai";
-import { settingAtom } from "@/store";
 //import { useCardContext } from '@/context/cardContext'
 // import useActionList from '@/hooks/useActionList'
 
@@ -15,9 +11,7 @@ export default function PopupInput ({
   onSubmit: (msg: string) => void;
   placeholder?: string;
 }) {
-  const [setting] = useAtom(settingAtom)
   const [value, setValue] = useState("");
-  const [showSubmitBtn, setShowSubmitBtn] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const handleSubmit = () => {
     if (value.trim() === "") return;

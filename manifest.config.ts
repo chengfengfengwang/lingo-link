@@ -36,10 +36,6 @@ export default defineManifest(async () => ({
       matches: ["*://*/*"],
     },
   ],
-  // options_ui: {
-  //   page: "src/pages/options/index.html",
-  //   open_in_tab: true,
-  // },
   "options_page": "src/pages/options/index.html",
   background: {
     service_worker: "src/background.ts",

@@ -1,17 +1,17 @@
 import Browser from "webextension-polyfill";
 import type { ExtensionMessage, BackgroundFetchParam } from "./types";
-const  screenshot = async () => {
-  const res = await Browser.tabs.captureVisibleTab();
-  const tabs = await Browser.tabs.query({
-    active: true,
-    currentWindow: true
-  })
-  const message: ExtensionMessage = {
-    type: 'onScreenDataurl',
-    payload: res
-  }
-  Browser.tabs.sendMessage(tabs[0].id!, message);
-}
+//const  screenshot = async () => {
+//   const res = await Browser.tabs.captureVisibleTab();
+//   const tabs = await Browser.tabs.query({
+//     active: true,
+//     currentWindow: true
+//   })
+//   const message: ExtensionMessage = {
+//     type: 'onScreenDataurl',
+//     payload: res
+//   }
+//   Browser.tabs.sendMessage(tabs[0].id!, message);
+// }
 
 const backgroundFetch = async (param: BackgroundFetchParam) => {
   const { url, method, responseType } = param;
@@ -94,11 +94,4 @@ Browser.runtime.onMessage.addListener(async (message: ExtensionMessage) => {
     return await Browser.tabs.captureVisibleTab()
   }
 });
-
-
-// Browser.commands.onCommand.addListener((command) => {
-//   if (command === 'screenshot') {
-//     screenshot()
-//   }
-// })
 
