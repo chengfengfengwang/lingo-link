@@ -4,6 +4,14 @@ export default function UpdateLog () {
   return (
     <div className="space-y-6">
       <div>
+        <div className="text-2xl font-bold">0.3.2 (2024-06-17)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>重构、优化项目</li>
+          <li>单词不再每页请求，提供手动从远程更新选项</li>
+          <li>增加问题反馈渠道</li>
+        </ul>
+      </div>
+      <div>
         <div className="text-2xl font-bold">0.2.2 (2024-05-29)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>support <a target="_blank" className="underline" href="https://deeplx.owo.network/">DeepLX</a></li>

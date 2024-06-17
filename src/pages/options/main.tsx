@@ -8,11 +8,12 @@ import "@/i18n.ts";
 import EnginesSetting from "./enginsSetting";
 import ExternalLinks from "./externalLiks";
 import { wordListUrl, wordListWindowName } from "@/utils/const";
-import ScreenshotSetting from "./screenshotSetting";
+// import ScreenshotSetting from "./screenshotSetting";
 import UpdateLog from "@/components/UpdateLog";
 import Question from './question'
 import Other from "./other";
 import Sidebar from "./sidebar";
+import MovieWeb from "./movieWeb";
 export interface MenuItem {
   name: string;
   active: boolean;
@@ -54,11 +55,17 @@ export default function App() {
       active: false,
       component: <DataManage />,
     },
+    // {
+    //   name: "Screenshot API",
+    //   path: "/screenshot",
+    //   active: false,
+    //   component: <ScreenshotSetting />,
+    // },
     {
-      name: "Screenshot API",
-      path: "/screenshot",
+      name: "Movie Webs",
+      path: "/movieweb",
       active: false,
-      component: <ScreenshotSetting />,
+      component: <MovieWeb />,
     },
     {
       name: "Update Log",
