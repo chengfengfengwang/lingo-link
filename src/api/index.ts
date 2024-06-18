@@ -3,8 +3,6 @@ import type { Sww } from "@/types/words";
 import { getSetting } from "@/storage/sync";
 import { sendBackgroundFetch } from "@/utils";
 import { User } from "@/types";
-// const baseUrl = 'https://dsg1ijpmsi.hk.aircode.run'
-//const baseUrl = 'http://localhost:8787'
 const baseUrl = "https://api.mywords.cc";
 
 interface Login {
@@ -90,12 +88,6 @@ export const upload = async (blob: Blob) => {
 };
 export const login = async (params: Login["params"]): Promise<Login["res"]> => {
   return request("/login", {
-    method: "POST",
-    body: params,
-  });
-};
-export const sendEmail = async (params: { email: string }) => {
-  return request("/sendSms", {
     method: "POST",
     body: params,
   });

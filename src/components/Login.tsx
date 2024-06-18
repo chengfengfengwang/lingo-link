@@ -20,20 +20,6 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
   const [countdownStatus, setCountdownStatus] = useState(false);
   const [countdown, setCountdown] = useState(resendTime);
   const dialogRef = useRef<HTMLDialogElement|null>(null)
-  // const sendCode = () => {
-  //   const email = (
-  //     getRoot()?.querySelector("#email") as HTMLInputElement
-  //   ).value.trim();
-  //   if (!/^\S+@\S+\.\S+$/.test(email)) {
-  //     return;
-  //   }
-  //   if (countdownStatus) {
-  //     return;
-  //   }
-  //   setCountdownStatus(true);
-  //   setCountdown(resendTime);
-  //   sendEmail({ email });
-  // };
   const storeResult = (loginRes: Awaited<ReturnType<typeof login>>) => {
     setSetting({
       userInfo: {
@@ -157,25 +143,7 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
                   className="input input-bordered w-full"
                 />
               </label>
-              {/* <label className="flex ">
-                <input
-                  placeholder={t('Email Verification Code')}
-                  type="number"
-                  required
-                  className="input input-bordered w-full"
-                />
-                <button
-                  type="button"
-                  onClick={sendCode}
-                  className="ml-3 btn w-[125px]"
-                >
-                  {countdownStatus ? (
-                    <span>{countdown}</span>
-                  ) : (
-                    <span>{t("Send Code")}</span>
-                  )}
-                </button>
-              </label> */}
+             
               <button type="submit" className="btn btn-block">
                 {t("Sign in")}
               </button>
