@@ -2,7 +2,6 @@ English ｜ [简体中文](README_ZH-CN.md)
 
 ## Download
 - [Chrome Browser](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
-<br>
 - [Edge Browser](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
 
 ## Introduction
