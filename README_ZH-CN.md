@@ -1,7 +1,6 @@
 
 ## 下载
 - [chrome 浏览器](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
-<br>
 - [edge 浏览器](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
 ## 介绍
 lingo link是一个浏览器插件，主要功能是划词翻译，希望能够辅助外文**原文**阅读，在此过程中提高外语能力。插件的设计希望能够简洁、美观。
