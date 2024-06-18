@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+English ｜ [简体中文](README_ZH-CN.md)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Download
+- [Chrome Browser](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
+<br>
+- [Edge Browser](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
 
-Currently, two official plugins are available:
+## Introduction
+Lingo Link is a browser extension primarily designed for translation of selected text, aimed at assisting with reading foreign language **original texts** and improving language skills in the process. The plugin is designed to be simple and aesthetically pleasing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Main Features
+- Word Lookup: Youdao Dictionary Simplified, Youdao Dictionary Collins
+- Translation: Youdao Translation, Google Translation, OpenAI, Gemi, Moonshot, Deepseek, etc. Large model translations require an API key.
+- Vocabulary Marking: Collected new words will be marked on the webpage.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Development
 ```
+npm install
+npm run dev:chrome
+or
+npm run dev:edge
+```
+Open the browser extension development mode and load the dist folder.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Build
+The dist directory contains the final build output.
+```
+npm run build:chrome
+or
+npm run build:edge
+```
+## Acknowledgements
+- [openai-translator](https://github.com/openai-translator/openai-translator)
+- [ext-saladict](https://github.com/crimx/ext-saladict)
+- [relingo](https://chromewebstore.google.com/detail/relingo-master-words-bili/dpphkcfmnbkdpmgneljgdhfnccnhmfig)
