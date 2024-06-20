@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "type": "module",
   "scripts": {
-    "dev:edge": "cross-env  BUILD_TARGET=chrome edge",
+    "dev:edge": "cross-env  BUILD_TARGET=chrome vite",
     "dev:chrome": "cross-env  BUILD_TARGET=chrome vite",
     "build:chrome": "tsc && cross-env  BUILD_TARGET=chrome vite build",
     "build:edge": "tsc && cross-env BUILD_TARGET=edge vite build",
