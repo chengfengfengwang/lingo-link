@@ -288,6 +288,43 @@ export default function EnginesSetting() {
           </div>
         </div>
       )}
+      {availableEngines.findIndex((engine) => engine.value === "custom") !==
+        -1 && (
+        <div>
+          <div className="flex items-center mb-3">
+          <div className="font-semibold text-[17px]">Custom AI</div>
+          <div className="ml-3 text-[12px] text-gray-500">API format need compatible with OpenAI</div>
+          </div>
+          <div className="border rounded-xl p-9">
+          <div>
+              <div className="text-[15px] my-2">apiAddress</div>
+              <input
+                onChange={(e) => {
+                  setSetting({
+                    customAIAddress: e.target.value
+                  })
+                }}
+                value={setting?.customAIAddress ?? ''}
+                type="text"
+                placeholder=""
+                className="input input-bordered w-full"
+              />
+              <div className="text-[15px] my-2">model</div>
+              <input
+                onChange={(e) => {
+                  setSetting({
+                    customAIModel: e.target.value
+                  })
+                }}
+                value={setting?.customAIModel ?? ''}
+                type="text"
+                placeholder=""
+                className="input input-bordered w-full"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

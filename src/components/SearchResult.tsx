@@ -64,15 +64,14 @@ export default function TranslateContent({
     if (isWordResult) {
       const list = setting.wordEngineList ?? allWordEngineList;
       if (list && list instanceof Array && list.length) {
-        setCurrentEngine(list[0].value);
+        setCurrentEngine(list.filter(item => item.checked)[0].value);
       } else {
         setCurrentEngine(allWordEngineList[0].value);
       }
     } else {
-      const list = setting.sentenceEngineList ?? allSentenceEngineList;
-
+      const list = setting.sentenceEngineList ?? allSentenceEngineList;      
       if (list && list instanceof Array && list.length) {
-        setCurrentEngine(list[0].value);
+        setCurrentEngine(list.filter(item => item.checked)[0].value);
       } else {
         setCurrentEngine(allSentenceEngineList[0].value);
       }

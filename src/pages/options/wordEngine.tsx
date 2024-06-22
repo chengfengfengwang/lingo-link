@@ -37,7 +37,18 @@ export default function WordEngine() {
   const [setting, setSetting] = useAtom(settingAtom);
   const { t } = useTranslation();
   const sensors = useSensors(useSensor(FilterPointerSensor));
-  const engineList = setting.wordEngineList ?? allWordEngineList;
+  let engineList:EngineItem[] = [];
+  if (setting.wordEngineList){
+    const newAddItems = allWordEngineList.filter(defaultItem =>  !setting.wordEngineList?.find(item => item.value === defaultItem.value));
+    
+    if (newAddItems.length) {
+      engineList = [...setting.wordEngineList,...newAddItems]
+    } else {
+      engineList = setting.wordEngineList
+    }
+  } else {
+    engineList = allWordEngineList
+  }
   const handleEngineChange = (engineItem: EngineItem, checked: boolean) => {
     setSetting({
       wordEngineList: engineList.map((item) => {

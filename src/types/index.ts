@@ -88,6 +88,8 @@ export interface Setting {
   screenshotToken?: string;
   deepSeekApiKey?:string;
   deepLXAddress?:string;
+  customAIAddress?:string;
+  customAIModel?:string
 }
 export interface Local {
   swwList?: Sww[];

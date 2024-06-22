@@ -170,6 +170,13 @@ export const defaultSetting = {
       isChat: false,
       checked:false,
       compatible: 'sentence',
+    },
+    {
+      name: "Custom",
+      value: "custom",
+      isChat: true,
+      checked:false,
+      compatible: 'both',
     }
   ]
 };
