@@ -88,7 +88,7 @@ export const defaultSetting = {
   wordSystemPrompt:'我正在学习英语，接下来我会提供给你一个句子和这个句子中的一个单词，请以牛津英汉词典的格式解释句子中的这个单词的含义，并举出一个英文例句，同时把英文例句翻译成中文',
   //wordUserContent: `单词是：{word}`,
   wordUserContent:'单词是：{word}，句子是{sentence}',
-  sentenceSystemPrompt: `You are a translator. Please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation.`,
+  sentenceSystemPrompt: `You are a translation AI. You only need to provide the translation result without adding any irrelevant content.`,
   sentenceUserContent: `Translate the following text to {targetLanguage}:{sentence}`,
   externalLinks: [
     {

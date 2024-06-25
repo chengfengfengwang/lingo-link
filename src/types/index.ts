@@ -89,7 +89,8 @@ export interface Setting {
   deepSeekApiKey?:string;
   deepLXAddress?:string;
   customAIAddress?:string;
-  customAIModel?:string
+  customAIModel?:string;
+  customAIKey?:string
 }
 export interface Local {
   swwList?: Sww[];

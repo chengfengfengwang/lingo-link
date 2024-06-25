@@ -55,12 +55,14 @@ export default class CustomAIClass implements Chat {
       const model = setting.customAIModel;
       let result = '';
       content && this.messageList.push({role: 'user', content});
-      this.messageList.push({role: 'assistant', content: ''})
+      this.messageList.push({role: 'assistant', content: ''});
       const res = await fetch(url, {
         method: 'POST',
         signal: this.controller.signal,
         headers: {
           'Content-Type': 'application/json',
+          ...(setting.customAIKey ? {Authorization:
+            `Bearer ${setting.customAIKey}`}: {})
         },
         body: JSON.stringify({
           model,
