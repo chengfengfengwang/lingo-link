@@ -321,6 +321,18 @@ export default function EnginesSetting() {
                 placeholder=""
                 className="input input-bordered w-full"
               />
+              <div className="text-[15px] my-2">apiKey</div>
+              <input
+                onChange={(e) => {
+                  setSetting({
+                    customAIKey: e.target.value
+                  })
+                }}
+                value={setting?.customAIKey ?? ''}
+                type="text"
+                placeholder=""
+                className="input input-bordered w-full"
+              />
             </div>
           </div>
         </div>
