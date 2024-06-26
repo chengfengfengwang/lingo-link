@@ -37,7 +37,9 @@ export type ExtensionMessage =
   | {
       type: "getCurWindowSelectionInfo"
     };
-
+export type ExternalMessage = {
+  type: 'getUser'
+}
 export interface User {
   picture?: string;
   name?: string;

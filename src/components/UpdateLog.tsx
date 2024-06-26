@@ -4,6 +4,14 @@ export default function UpdateLog () {
   return (
     <div className="space-y-6">
       <div>
+        <div className="text-2xl font-bold">0.3.4 (2024-06-25)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>
+            <a target="issues" className="underline" href="https://github.com/chengfengfengwang/lingo-link/issues/5">fix custom models.</a>
+          </li>
+        </ul>
+      </div>
+      <div>
         <div className="text-2xl font-bold">0.3.3 (2024-06-22)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>

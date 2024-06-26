@@ -14,9 +14,7 @@ export const defaultCardMinHeight = 150;
 export const defaultTranslateMaxWidth = 500;
 export const defaultTranslateWidth = 500;
 export const defaultTranslateMinHeight = 100;
-export const wordListUrl = import.meta.env.DEV
-  ? "http://localhost:7777/"
-  : "https://words.mywords.cc/";
+export const wordListUrl = "https://words.mywords.cc";
   //export const wordListUrl = "https://words.mywords.cc/";
 export const isWordListPage = location.href === wordListUrl;
 export const wordListWindowName = "wordList";

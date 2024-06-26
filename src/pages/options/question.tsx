@@ -12,17 +12,6 @@ export default function Question() {
           <li>欢迎邮件反馈给我602120734@qq.com</li>
         </ul>
       </div>
-      <div className="collapse collapse-open">
-        <input type="radio" name="my-accordion-1" defaultChecked />
-        <div className="collapse-title text-xl font-medium">
-          建议、反馈
-        </div>
-        <ul className="collapse-content list-inside list-decimal">
-          <li>
-            <a target="feedback" className="underline link" href="https://docs.qq.com/form/page/DRVZ2WlFnTU1mTEhJ">【腾讯文档】去填写</a></li>
-          
-        </ul>
-      </div>
     </>
   );
 }

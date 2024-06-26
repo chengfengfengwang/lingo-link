@@ -3,7 +3,7 @@ import { clearLocal } from "@/storage/local";
 import { clearSession } from "@/storage/session";
 import browser from "webextension-polyfill";
 import { useTranslation } from "react-i18next";
-
+import {Github} from 'lucide-react'
 export default function Other() {
   const { t } = useTranslation();
   const reset = async () => {
@@ -52,6 +52,15 @@ export default function Other() {
       <div className="text-green-700">
         <h1>{t("Sorry")}😅</h1>
         <h1>{t("Feedback")}</h1>
+      </div>
+      <div>
+        <a
+          target="feedback"
+          className="underline link flex items-center"
+          href="https://github.com/chengfengfengwang/lingo-link"
+        >
+          <Github width={22} height={22} className="mr-1" /> 建议、反馈、贡献
+        </a>
       </div>
     </div>
   );

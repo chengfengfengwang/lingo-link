@@ -1,5 +1,6 @@
 import Browser from "webextension-polyfill";
-import type { ExtensionMessage, BackgroundFetchParam } from "./types";
+import type { ExtensionMessage, BackgroundFetchParam, ExternalMessage } from "./types";
+import { getSetting } from "./storage/sync";
 //const  screenshot = async () => {
 //   const res = await Browser.tabs.captureVisibleTab();
 //   const tabs = await Browser.tabs.query({
@@ -94,4 +95,9 @@ Browser.runtime.onMessage.addListener(async (message: ExtensionMessage) => {
     return await Browser.tabs.captureVisibleTab()
   }
 });
-
+Browser.runtime.onMessageExternal.addListener(async (message:ExternalMessage) => {
+  if (message.type === 'getUser') {
+    const setting =  await getSetting();
+    return setting.userInfo
+  }
+})

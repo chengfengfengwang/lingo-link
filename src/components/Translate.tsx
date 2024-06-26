@@ -150,7 +150,7 @@ export default function Translate({
               )}
               {collectInfo && !hasRemarkContent && (
                 <span
-                  className="p-[4px] rounded tooltip tooltip-bottom w-[21px] h-[21px] cursor-pointer"
+                  className="hidden p-[4px] rounded tooltip tooltip-bottom w-[21px] h-[21px] cursor-pointer"
                   data-tip={t("Take Notes")}
                   onClick={onPencilClick}
                 >

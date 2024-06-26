@@ -315,7 +315,7 @@ export default function RenderWord({
               )}
               {isCollected && !hasRemark && (
                 <div
-                  className="bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
+                  className="hidden bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
                   data-tip={t("Take Notes")}
                   onClick={onPencilClick}
                 >

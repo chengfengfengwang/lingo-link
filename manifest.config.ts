@@ -47,6 +47,9 @@ let json:ManifestV3Export = {
     "https://www.youdao.com/*",
     "https://dict.youdao.com/*"
   ],
+  externally_connectable:   {
+    "matches": ["http://localhost:7777/*", "https://*.mywords.cc/*"]
+  }
 }
 if (target === 'chrome') {
   json = {...json, ...{key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApXvVjpN4kxyWPCZuhsoHZYavMOI+U5w6FHXITdHUuF5UKzlAJr0Lqu5ZY5+b6U+Y19ZLh9SDfhFi4fk5PtF3I8cQbUI8p2eXxwUio7IgxWJQgruQLwILO08LvLTa55BinA/Sgstl6zbYTAeFLthd1JJyz5FDN26NwH6CcbqEY7AC2Vr9/VtwH4buz92qetjuR5MpfrzNUN0QtSlKnXPJ8wasCGeWDcerynYw/OEVXwbgiENfK8+K9hHKnsZLK+U4Y4yrNEZPOfMBSe+Q1o2+eof2DQFxsDxy9ohyk3P1/oyP3vmhD2xxuJOtsS9hp31lDm+2nlreCC3w5IKsUZABDQIDAQAB",

@@ -64,7 +64,7 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
           <Check className="opacity-50" width={16} hanging={16} />
         ) : null}
         {!showSuccess ? (
-          <span data-tip="从远程更新单词列表" className={`tooltip tooltip-left`}>
+          <span data-tip="从远程更新单词列表" className={`${user ? '' : 'hidden'} tooltip tooltip-left`}>
             <RefreshCcw
               onClick={refechWordList}
               className={`opacity-50 cursor-pointer ${
@@ -84,7 +84,7 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
         /> */}
         <ClipboardList
           onClick={openWordList}
-          className="opacity-50 cursor-pointer"
+          className={`${user ? '' : 'hidden'} opacity-50 cursor-pointer`}
           width={16}
           hanging={16}
         />
