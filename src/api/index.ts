@@ -1,10 +1,10 @@
 import { toastManager } from "@/components/Toast";
-import type { Sww } from "@/types/words";
+import type { CommunityItemType, Sww } from "@/types/words";
 import { getSetting } from "@/storage/sync";
-import { sendBackgroundFetch } from "@/utils";
+import { base64ToBlob, sendBackgroundFetch } from "@/utils";
 import { User } from "@/types";
-const baseUrl = "https://api.mywords.cc";
 
+const baseUrl = "https://api.mywords.cc";
 interface Login {
   params:
     | { email: string; code: number; loginWithGoogle: boolean }
@@ -103,3 +103,40 @@ export async function baiduDetectLang(text: string) {
     // return langMap[json.lan] || "en";
     return json.lan ?? 'en'
 }
+export async function uploadMultiBase64(arr: string[]) {  
+  const urls:string[] = await Promise.all(
+    arr.map(async (base64) => {
+      if (base64.startsWith("http")) {
+        return base64;
+      } else {
+        const blob = await base64ToBlob(base64);
+        const key = (await upload(blob)).key;
+        return "https://r2.mywords.cc/" + key
+      }
+    }),
+  );
+  return urls;
+}
+export const getMyAllRemarkList = async (): Promise<{ list: CommunityItemType[] } | undefined> => {
+  return request(`/community/allRemarkList`, {
+    method: "GET",
+  });
+};
+export const addCommunity = async (param: CommunityItemType) => {
+  return request("/community/add", {
+    method: "POST",
+    body: param,
+  });
+};
+export const deleteCommunity = async (param:{id: string}) => {
+  return request("/community/delete", {
+    method: "POST",
+    body: param,
+  });
+};
+export const editItemContent = async (param: {id:string,content:string,imgs:string[], lastEditDate:number}) => {
+  return request("/community/itemEditContent", {
+    method: "POST",
+    body: param,
+  });
+};

@@ -1,103 +1,112 @@
-import { useEffect, useState } from "react";
-import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
+import Editor from "./Editor";
+import { X } from "lucide-react";
+import { collectInputBasicAtom } from "@/store";
+import { useImmerAtom } from "jotai-immer";
+import { useState } from "react";
 export default function CollectForm({
   size,
-  showCloseIcon = true,
-  initialValue,
+  showCloseIcon,
   onCancel,
   onSubmit,
 }: {
   size?: "sm" | "md";
   showCloseIcon?: boolean;
-  initialValue?: {word:string,context:string}|undefined;
   onCancel: () => void;
-  onSubmit: (params: {word:string,context:string}) => void;
+  onSubmit: () => Promise<void>;
 }) {
   const { t } = useTranslation();
-  const [word, setWord] = useState("");
-  const [sentenceValue, setSentenceValue] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [collectSwwInfo, setCollectBasicInfo] = useImmerAtom(
+    collectInputBasicAtom
+  );
   const handleSubmit = async () => {
-    const formValue = {
-      word,
-      context: sentenceValue,
-    };
-    onSubmit(formValue);
+    setLoading(true);
+    await onSubmit();
+    setLoading(false);
   };
-
-  useEffect(() => {
-    if (initialValue?.word) {
-      setWord(initialValue.word);
-    }
-    if (initialValue?.context) {
-      setSentenceValue(initialValue.context);
-    }
-   
-  }, [initialValue]);
   return (
-    <div className="text-[14px]">
+    <div className="relative text-[14px] grid grid-cols-1 gap-4">
       {showCloseIcon && (
-        <h2 className="flex items-center justify-end text-xl font-bold">
+        <div className="p-0 absolute z-10 right-0 top-0">
           <X
             onClick={onCancel}
             className="cursor-pointer  w-[18px] h-[18px]"
           ></X>
-        </h2>
+        </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4">
-        <label className="block">
-          <span className="font-semibold">{t("Word to Save")}</span>
-          <div className="flex items-center">
-            <input
-              required
-              value={word}
-              onChange={(e) => {
-                setWord(e.target.value);
-              }}
-              type="text"
-              placeholder="word"
-              className={`placeholder:text-base-content/50 mt-1 input input-bordered w-full ${
-                size === "sm" ? "input-sm" : ""
-              }`}
-            />
-          </div>
-        </label>
-        <label className="block">
-          <span className="font-semibold">
-            {t("Sentence Containing the Word")}
-          </span>
-          <textarea
-          required
-            value={sentenceValue}
-            onChange={(e) => setSentenceValue(e.target.value)}
-            rows={2}
-            className={`placeholder:text-base-content/50 block mt-1 w-full textarea textarea-bordered ${
-              size === "sm" ? "textarea-sm" : ""
+      <label className="block">
+        <span className="font-semibold">{t("Word to Save")}</span>
+        <div className="flex items-center">
+          <input
+            required
+            value={collectSwwInfo?.word ?? ""}
+            onChange={(e) => {
+              setCollectBasicInfo((draft) => {
+                draft!.word = e.target.value;
+              });
+            }}
+            type="text"
+            placeholder="word"
+            className={`placeholder:text-base-content/50 mt-1 input input-bordered w-full ${
+              size === "sm" ? "input-sm" : ""
             }`}
-            placeholder={t("Sentence Containing the Word")}
-          ></textarea>
-        </label>
-        
-
-        <div className="flex justify-end items-center">
-          <button
-            onClick={onCancel}
-            className={`btn ${size === "sm" ? "btn-sm" : ""}`}
-          >
-            {t("Cancel")}
-          </button>
-          <button
-            disabled={!word||!sentenceValue}
-            onClick={handleSubmit}
-            className={`${size === "sm" ? "btn-sm" : ""} btn btn-primary ml-2
-                  `}
-          >
-            {t("Save")}
-          </button>
+          />
         </div>
+      </label>
+      <label className="block">
+        <span className="font-semibold">
+          {t("Sentence Containing the Word")}
+        </span>
+        <textarea
+          required
+          value={collectSwwInfo?.context}
+          onChange={(e) => {
+            setCollectBasicInfo((draft) => {
+              draft!.context = e.target.value;
+            });
+          }}
+          rows={2}
+          className={`placeholder:text-base-content/50 block mt-1 w-full textarea textarea-bordered ${
+            size === "sm" ? "textarea-sm" : ""
+          }`}
+          placeholder="context"
+        ></textarea>
+      </label>
+      <label className="block">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">{t("Remark")}</span>
+          <span className="text-[12px]">
+            目前笔记数据会在
+            <a
+              className="text-blue-500 underline"
+              target="community"
+              href="https://words.mywords.cc/recommend"
+            >
+              社区
+            </a>
+            公开
+          </span>
+        </div>
+        <Editor />
+      </label>
+      <div className="flex justify-end items-center">
+        <button
+          onClick={onCancel}
+          className={`btn ${size === "sm" ? "btn-sm" : ""}`}
+        >
+          {t("Cancel")}
+        </button>
+        <button
+          disabled={!collectSwwInfo?.word || !collectSwwInfo.context || loading}
+          onClick={handleSubmit}
+          className={`${size === "sm" ? "btn-sm" : ""} btn btn-primary ml-2
+                  `}
+        >
+          {loading ? <span className="loading loading-spinner"></span> : null}
+          {t("Save")}
+        </button>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import {
   Carrot,
 } from "lucide-react";
 import { useRef } from "react";
-import { Sww } from "@/types/words";
+import { CommunityItemType, Sww } from "@/types/words";
 import Highlight from "./Highlight";
 import useYoudao from "./useYoudao";
 import { useTranslation } from "react-i18next";
@@ -24,10 +24,10 @@ import ContentMore from "./ContentMore";
 import useOldYoudao from "./useOldYoudao";
 import { useAtom } from "jotai";
 import { settingAtom } from "@/store";
+import RenderRemark from "./RenderRemark";
 function RenderYoudaoWord({ searchText }: { searchText: string }) {
  const {t} = useTranslation();
   const [setting] = useAtom(settingAtom);
-
   const sourceLang =
     setting.sourceLanguage?.language ?? defaultSetting.sourceLanguage.language;
   const { loading, wordData } = useYoudao(searchText, sourceLang);
@@ -218,6 +218,7 @@ const weightArr = [1, 2, 3, 4, 5];
 export default function RenderWord({
   searchText,
   collectInfo,
+  remarkInfo,
   onHeartClick,
   onMasterClick,
   onPencilClick,
@@ -227,6 +228,7 @@ export default function RenderWord({
 }: {
   searchText: string;
   collectInfo: Sww | undefined;
+  remarkInfo: Partial<CommunityItemType>
   onHeartClick: () => void;
   onMasterClick: () => void;
   onPencilClick: () => void;
@@ -244,11 +246,6 @@ export default function RenderWord({
   const isMastered =
     collectInfo &&
     (collectInfo.masteryLevel === 1 || collectInfo.masteryLevel === 2);
-  const hasRemark =
-    isCollected &&
-    collectInfo?.remark &&
-    collectInfo.remark !== '""' &&
-    collectInfo.remark !== '{"ops":[{"insert":"\\n"}]}';
   const sourceLang =
     setting.sourceLanguage?.language ?? defaultSetting.sourceLanguage.language;
   const wordSystemPrompt =
@@ -256,7 +253,7 @@ export default function RenderWord({
   const wordUserContent =
     setting.wordUserContent ?? defaultSetting.wordUserContent;
   const targetLang = setting.targetLanguage ?? defaultSetting.targetLanguage;
-
+  
   const enterConversation = () => {
     // setConversationShow(true);
     // setMessageList(wordChatRef.current?.getMessageList() ?? []);
@@ -313,15 +310,15 @@ export default function RenderWord({
                   )}
                 </div>
               )}
-              {isCollected && !hasRemark && (
+              {(isCollected && !remarkInfo.content && !remarkInfo.imgs?.length) ? (
                 <div
-                  className="hidden bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
+                  className="bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
                   data-tip={t("Take Notes")}
                   onClick={onPencilClick}
                 >
                   <MessageCircle className="w-full h-full" />
                 </div>
-              )}
+              ) : null}
               {isCollected && (
                 <>
                   <div className="hidden dropdown dropdown-bottom">
@@ -366,23 +363,7 @@ export default function RenderWord({
               <RenderYoudaoWord searchText={searchText} />
             </>
           )}
-          {hasRemark && (
-            <div className="my-2">
-              <div className="flex items-center space-x-2 mb-1">
-                <span className="text-lg font-bold">{t("Notes")}</span>
-                <div
-                  data-tip={t("Edit")}
-                  onClick={onPencilClick}
-                  className="bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
-                >
-                  <Pencil className="w-full h-full" />
-                </div>
-              </div>
-              {/* {collectInfo.remark && (
-                <RenderRemark delta={collectInfo.remark} />
-              )} */}
-            </div>
-          )}
+          
           {collectInfo && collectInfo.context && (
             <div className="my-2">
               <div className="flex items-center space-x-2 mb-1">
@@ -406,6 +387,21 @@ export default function RenderWord({
               </div>
             </div>
           )}
+          { (remarkInfo.content || remarkInfo.imgs?.length) ? (
+            <div className="my-2">
+              <div className="flex items-center space-x-2 mb-1">
+                <span className="text-lg font-bold">{t("Notes")}</span>
+                <div
+                  data-tip={t("Edit")}
+                  onClick={onPencilClick}
+                  className="bg-base-300 p-[4px] rounded tooltip tooltip-bottom w-[20px] h-[20px] cursor-pointer"
+                >
+                  <Pencil className="w-full h-full" />
+                </div>
+              </div>
+              <RenderRemark content={remarkInfo.content} imgs={remarkInfo.imgs ?? []} />
+            </div>
+          ) : null}
           <RenderWordChat
             ref={wordChatRef}
             wordSystemPrompt={wordSystemPrompt}
@@ -425,6 +421,8 @@ export default function RenderWord({
       );
     }
   } catch (error) {
+    console.log(error);
+    
     result = (
       <div className="text-center py-[20px] text-[13px] text-red-600">
         {t("An error occurred")}

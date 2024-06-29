@@ -1,11 +1,12 @@
-import { Setting } from "@/types";
+import { CollectRemarkInfo, CollectBasicInfo, Setting } from "@/types";
 import { atom } from "jotai";
-import { Sww } from "./types/words";
+import { CommunityItemType, Sww } from "./types/words";
 import { getSetting as getSettingStorage, setSetting as  setSettingStorage} from "./storage/sync";
 import { addSwwApi, removeWordApi, updateWordApi } from "./api";
 import { removeWord as removeStorageWord, updateWord as updateStorageWord, addWord as addStorageWord } from "@/storage/local";
 import { addWordOulu, removeWordOulu } from "./api/oulu";
-import { getList as getStorageSwwList } from "@/storage/local";
+import { getList as getStorageSwwList, getRemarkList } from "@/storage/local";
+
 const _settingAtom = atom<Setting|Record<string,never>>({})
 export const swwListAtom = atom<Sww[]>([])
 swwListAtom.onMount = (setAtom) => {
@@ -49,3 +50,12 @@ export const updateSwwItemAtom = atom(null,(get,set,update:Sww) => {
     }
   }))
 })
+export const collectShowAtom = atom(false)
+export const collectInputBasicAtom = atom<CollectBasicInfo|undefined>(undefined)
+export const collectInputRemarkAtom = atom<CollectRemarkInfo>({} as CollectRemarkInfo)
+export const remarkListAtom = atom<CommunityItemType[]>([]);
+remarkListAtom.onMount = (setAtom) => {
+  getRemarkList().then(res => {
+    setAtom(res)
+  })
+}

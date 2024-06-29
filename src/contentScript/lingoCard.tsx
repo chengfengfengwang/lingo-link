@@ -26,6 +26,7 @@ import { ExtensionMessage } from "@/types";
 import onCaptureScreenResult from "@/utils/onCaptureScreenResult";
 import { useAtom } from "jotai";
 import useTreeWalker from "@/hooks/useTreeWalker";
+import useContentScriptMessage from "@/hooks/useContentScriptMessage";
 // export default function ConversationProviderWrapper() {
 //   return (
 //     <ConversationProvider>
@@ -34,6 +35,7 @@ import useTreeWalker from "@/hooks/useTreeWalker";
 //   );
 // }
 export default function ContentScriptApp() {
+  useContentScriptMessage();
   const mouseoverCollectTimer = useRef<number | null>(null);
   const hideCardTimer = useRef<number | null>(null);
   const [setting] = useAtom(settingAtom);
@@ -181,7 +183,6 @@ export default function ContentScriptApp() {
       emitter.off("showCard", showCardAndPosition);
     };
   }, [showCardAndPosition]);
-  
   const handleTriggerClick = () => {
     showCardAndPosition({
       text: currentSelectionInfo.word,

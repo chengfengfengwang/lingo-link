@@ -4,6 +4,17 @@ export default function UpdateLog () {
   return (
     <div className="space-y-6">
       <div>
+        <div className="text-2xl font-bold">0.4.0 (2024-06-29)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>
+            收藏单词时可以记笔记了，尝试用你的截图软件截图，然后在输入框粘贴，或者点击附件📎按钮，可以上传图片。
+          </li>
+          <li>
+            笔记目前会在<a className="text-blue-500 mx-1 underline" target="community" href="https://words.mywords.cc/recommend">社区</a>同步，你的笔记也有可能会帮助到别人哦
+          </li>
+        </ul>
+      </div>
+      <div>
         <div className="text-2xl font-bold">0.3.4 (2024-06-25)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>

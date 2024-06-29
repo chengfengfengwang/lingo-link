@@ -32,4 +32,15 @@ export type YoudaoCollins = {
       examples: string[];
   }[];
 }[]
-
+export type CommunityType = 'makeSentence'|'remark'
+export type CommunityItemType = {
+  id: string;
+  word:string;
+  context:string;
+  author:string;
+  lastEditDate: number;
+  content: string;
+  imgs?:string[];
+  type:CommunityType;
+  parentId?: string
+}

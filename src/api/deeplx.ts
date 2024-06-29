@@ -22,9 +22,7 @@ export default async function  deepLXTranslate({text}:{text: string}) {
     });
     if ('error' in data) {
       throw(data.error)
-    }
-    console.log(data);
-    
+    }    
     return data.data
   } catch (error) {
     console.log(error);

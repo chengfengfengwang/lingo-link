@@ -1,5 +1,5 @@
 import { LangCode, defaultSetting } from "@/utils/const";
-import type { Sww } from "./words";
+import type { CommunityItemType, Sww } from "./words";
 
 // export interface ExtensionMessage {
 //   type: "fetch" | "auth" | "openOptions" | "captureScreen";
@@ -36,7 +36,10 @@ export type ExtensionMessage =
     }
   | {
       type: "getCurWindowSelectionInfo"
-    };
+    }
+  | {
+    type: 'refreshLocalData'
+  }
 export type ExternalMessage = {
   type: 'getUser'
 }
@@ -96,6 +99,7 @@ export interface Setting {
 }
 export interface Local {
   swwList?: Sww[];
+  remarkList?:CommunityItemType[];
   openAIModelList?: { label: string; value: string }[];
 }
 export interface GoogleUser {
@@ -159,13 +163,8 @@ export type CollinsWord = {
     examples: (string | undefined | null)[];
   }[];
 };
-export interface WebSetting {
-  openAIKey?: string;
-  openAIAddress?: string;
-  openAIModel?: string;
-  geminiKey?: string;
-  moonShotKey?: string;
-  wenxinToken?: string;
-  openAIModelList?: { label: string; value: string }[];
-  listWordAutoPlay?:boolean
+export interface CollectBasicInfo {
+  word: string;
+  context: string;
 }
+export type CollectRemarkInfo = CommunityItemType

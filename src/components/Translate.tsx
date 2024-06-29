@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { CheckCheck, Heart, Undo2, MessageCircle, Pencil } from "lucide-react";
 import Highlight from "./Highlight";
-import type { Sww } from "@/types/words";
+import type { CommunityItemType, Sww } from "@/types/words";
 import InputBlink from "./InputBlink";
 import { Message } from "@/types/chat";
 import { useErrorBoundary } from "react-error-boundary";
@@ -14,10 +14,11 @@ import { EngineValue } from "@/types";
 import CardFooter from "./CardFooter";
 import { useAtom } from "jotai";
 import { settingAtom } from "@/store";
-
+import RenderRemark from "./RenderRemark";
 export default function Translate({
   searchText,
   collectInfo,
+  remarkInfo,
   onHeartClick,
   onMasterClick,
   onPencilClick,
@@ -26,6 +27,7 @@ export default function Translate({
 }: {
   searchText: string;
   collectInfo: Sww | undefined;
+  remarkInfo:Partial<CommunityItemType>
   onHeartClick: () => void;
   onMasterClick: () => void;
   onPencilClick: () => void;
@@ -38,15 +40,9 @@ export default function Translate({
   const [setting] = useAtom(settingAtom);
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
-
   const [translateResult, setTranslateResult] = useState("");
   const messageListRef = useRef<Message[]>([]);
   const { showBoundary } = useErrorBoundary();
-
-  const hasRemarkContent =
-    collectInfo?.remark &&
-    collectInfo.remark !== '""' &&
-    collectInfo.remark !== '{"ops":[{"insert":"\\n"}]}';
   const isMastered =
     collectInfo &&
     (collectInfo.masteryLevel === 1 || collectInfo.masteryLevel === 2);
@@ -148,9 +144,9 @@ export default function Translate({
                   )}
                 </span>
               )}
-              {collectInfo && !hasRemarkContent && (
+              {collectInfo && !remarkInfo.content && !remarkInfo.imgs?.length && (
                 <span
-                  className="hidden p-[4px] rounded tooltip tooltip-bottom w-[21px] h-[21px] cursor-pointer"
+                  className="p-[4px] rounded tooltip tooltip-bottom w-[21px] h-[21px] cursor-pointer"
                   data-tip={t("Take Notes")}
                   onClick={onPencilClick}
                 >
@@ -168,7 +164,7 @@ export default function Translate({
           </span>
         </div>
 
-        {hasRemarkContent && (
+        { (remarkInfo.content || remarkInfo.imgs?.length) ? (
           <div className="my-2">
             <div
               className="flex items-center space-x-2 mb-1"
@@ -182,8 +178,9 @@ export default function Translate({
                 <Pencil className="w-full h-full" />
               </div>
             </div>
-          </div>
-        )}
+            <RenderRemark content={remarkInfo.content} imgs={remarkInfo.imgs ?? []} />
+            </div>
+        ) : null}
         {collectInfo && collectInfo.context && (
           <div className="my-2">
             <div

@@ -1,4 +1,4 @@
-import type { Sww } from "@/types/words";
+import type { CommunityItemType, Sww } from "@/types/words";
 import { Local } from "@/types";
 import { isSameWord } from "@/utils";
 import browser from "webextension-polyfill";
@@ -36,3 +36,27 @@ export const removeWord = async({ word }: { word: string; }) => {
 export const getList = async () => {
   return (await getLocal()).swwList ?? []
 }
+export const getRemarkList = async () => {
+  return (await getLocal()).remarkList ?? []
+}
+export const addRemark = async (item: CommunityItemType) => {
+  const remarkList = (await getLocal())?.remarkList ?? [];
+  setLocal({remarkList: [...remarkList, item]})
+};
+export const updateRemark = async(item: CommunityItemType) => {  
+  const remarkList = (await getLocal())?.remarkList ?? [];
+  setLocal({remarkList:(
+    remarkList.map((im) => {
+      if (item.id === im.id) {
+        return { ...im, ...item  };
+      } else {
+        return im;
+      }
+    })
+  )});
+};
+export const removeRemark = async({ id }: { id: string; }) => {  
+  const remarkList = (await getLocal())?.remarkList ?? [];
+
+  setLocal({remarkList: (remarkList.filter((item) => item.id !== id))});
+};

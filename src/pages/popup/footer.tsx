@@ -1,12 +1,12 @@
 import { setSession } from "@/storage/session";
 import { getSetting } from "@/storage/sync";
-import { Setting } from "@/types";
+import { ExtensionMessage, Setting } from "@/types";
 import { Settings, ClipboardList, Check, RefreshCcw } from "lucide-react";
 import { wordListUrl, wordListWindowName } from "@/utils/const";
 //import { screenshot } from "@/utils";
 import browser from "webextension-polyfill";
 import Avator from "@/components/Avator";
-import { getSwwList } from "@/api";
+import { getMyAllRemarkList, getSwwList } from "@/api";
 import { setLocal } from "@/storage/local";
 import { useState } from "react";
 let timer: number | null = null;
@@ -31,21 +31,28 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
   //     window.close();
   //   }, 100);
   // };
-  const refechWordList = async () => {
+  const refechRemote = async () => {
     setRefetchLoading(true);
-    getSwwList()
-      .then((res) => {
-        if (res?.list instanceof Array) {
-          setLocal({ swwList: res.list });
-          setShowSuccess(true);
-        }
-        timer = window.setTimeout(() => {
-          setShowSuccess(false);
-        }, 1500);
-      })
-      .finally(() => {
-        setRefetchLoading(false);
-      });
+    const res = await Promise.all([getSwwList(), getMyAllRemarkList()]);    
+    if (res[0]?.list instanceof Array) {
+      await setLocal({ swwList: res[0].list });
+    }
+    if (res[1]?.list instanceof Array) {
+      await setLocal({ remarkList: res[1].list });
+    }
+    setShowSuccess(true);
+    timer = window.setTimeout(() => {
+      setShowSuccess(false);
+    }, 1500);
+
+    const message: ExtensionMessage = { type: "refreshLocalData" };
+    browser.runtime.sendMessage(message);
+    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    if (tab.id) {
+      chrome.tabs.sendMessage(tab.id, message);
+    }
+    setRefetchLoading(false);
+
     return () => {
       timer && clearTimeout(timer);
     };
@@ -64,9 +71,12 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
           <Check className="opacity-50" width={16} hanging={16} />
         ) : null}
         {!showSuccess ? (
-          <span data-tip="从远程更新单词列表" className={`${user ? '' : 'hidden'} tooltip tooltip-left`}>
+          <span
+            data-tip="从远程更新单词列表"
+            className={`${user ? "" : "hidden"} tooltip tooltip-left`}
+          >
             <RefreshCcw
-              onClick={refechWordList}
+              onClick={refechRemote}
               className={`opacity-50 cursor-pointer ${
                 refetchLoading ? "animate-spin" : null
               } `}
@@ -84,7 +94,7 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
         /> */}
         <ClipboardList
           onClick={openWordList}
-          className={`${user ? '' : 'hidden'} opacity-50 cursor-pointer`}
+          className={`${user ? "" : "hidden"} opacity-50 cursor-pointer`}
           width={16}
           hanging={16}
         />

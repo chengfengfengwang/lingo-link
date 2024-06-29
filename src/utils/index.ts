@@ -261,7 +261,6 @@ export const parseCollins = (html: string) => {
   };
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
-  console.log(doc);
   
   const cobuildItms = Array.from(
     doc.querySelectorAll(".definitions.cobuild .hom")
@@ -279,3 +278,23 @@ export const parseCollins = (html: string) => {
   return result;
 };
 export const isInPopup = /extension/.test(location.protocol);
+export function base64ToBlob(base64: string): Promise<Blob> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64;
+    img.onload = function () {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(
+        function (blob) {
+          resolve(blob!);
+        },
+        "image/webp",
+        0.5
+      );
+    };
+  });
+}

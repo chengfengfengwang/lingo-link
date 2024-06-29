@@ -1,4 +1,4 @@
-import { getSwwList, login } from "@/api";
+import { getMyAllRemarkList, getSwwList, login } from "@/api";
 import googleIcon from "@/assets/google.png";
 import React, { useEffect, useRef, useState } from "react";
 import { toastManager } from "@/components/Toast";
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Info } from "lucide-react";
 import browser from "webextension-polyfill";
 import { useAtom } from "jotai";
-import { settingAtom } from "@/store";
+import { settingAtom, remarkListAtom, swwListAtom } from "@/store";
 import { setLocal} from "@/storage/local";
 const imgUrl = new URL(googleIcon, import.meta.url).href;
 const hideGoogleLogin = /Firefox|Edg/.test(navigator.userAgent);
@@ -20,6 +20,8 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
   const [countdownStatus, setCountdownStatus] = useState(false);
   const [countdown, setCountdown] = useState(resendTime);
   const dialogRef = useRef<HTMLDialogElement|null>(null)
+  const [,setRemarkList] = useAtom(remarkListAtom);
+  const [,setSwwList] = useAtom(swwListAtom)
   const storeResult = (loginRes: Awaited<ReturnType<typeof login>>) => {
     setSetting({
       userInfo: {
@@ -32,7 +34,14 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
     });
     getSwwList().then(res => {
       if (res?.list instanceof Array) {
-        setLocal({swwList: res.list})
+        setLocal({swwList: res.list});
+        setSwwList(res.list)
+      }
+    })
+    getMyAllRemarkList().then(res => {
+      if (res?.list instanceof Array) {
+        setLocal({remarkList: res.list});
+        setRemarkList(res.list)
       }
     })
     toastManager.add({ type: "success", msg: "登录成功" });

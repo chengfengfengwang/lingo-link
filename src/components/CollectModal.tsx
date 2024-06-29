@@ -1,12 +1,18 @@
 import Draggable from "react-draggable";
-import { GripHorizontal } from "lucide-react";
 import { useRef } from "react";
-
-export default function CollectModal({children}:{children:React.ReactNode}) {
+import { X } from "lucide-react";
+import { collectShowAtom } from "@/store";
+import { useAtom } from "jotai";
+export default function CollectModal({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const nodeRef = useRef<HTMLDivElement | null>(null);
-  
+  const [,setCollectShow] = useAtom(collectShowAtom);
   return (
     <Draggable
+      handle=".modal_handle"
       nodeRef={nodeRef}
       defaultPosition={{ x: -250, y: -250 }}
       defaultClassName="chat_cat_dragable"
@@ -28,23 +34,14 @@ export default function CollectModal({children}:{children:React.ReactNode}) {
           boxSizing: "border-box",
         }}
       >
-        <GripHorizontal
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "6px",
-            transform: "translateX(-50%)",
-            width: "38px",
-            height: "38px",
-            boxSizing: "border-box",
-            opacity: ".5",
-            cursor: "move",
-            padding: "10px",
-          }}
-        />
-        <div>
-       {children}
+        <div className="modal_handle  z-10 absolute left-0 top-0 bg-transparent w-full h-[30px]"></div>
+        <div className="p-3 absolute z-10 right-0 top-0">
+          <X
+            onClick={()=>{setCollectShow(false)}}
+            className="cursor-pointer  w-[18px] h-[18px]"
+          ></X>
         </div>
+        <div>{children}</div>
       </div>
     </Draggable>
   );

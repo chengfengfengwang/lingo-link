@@ -92,7 +92,7 @@ const resources = {
       "Add to collection": "收藏",
       "Remove from collection": "取消收藏",
       "Word to Save": "单词",
-      "Sentence Containing the Word": "包含此单词的句子",
+      "Sentence Containing the Word": "上下文",
       Remark: "笔记",
       Account: "账户",
       "Sign out": "退出登录",
