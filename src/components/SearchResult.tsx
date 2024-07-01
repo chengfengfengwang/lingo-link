@@ -224,10 +224,11 @@ export default function TranslateContent({
         }
       });
       removeRemark({ id: wordRemarkInfo.id });
-    }    
+    }
+    
     if (
       wordRemarkInfo.id &&
-      (collectInputRemark.content || !collectInputRemark?.imgs?.length)
+      (collectInputRemark.content || collectInputRemark?.imgs?.length)
     ) {
       let urls: string[] = [];
       if (collectInputRemark?.imgs && collectInputRemark?.imgs.length) {
@@ -256,7 +257,7 @@ export default function TranslateContent({
       });
       updateRemark(editItem);
     }
-    if (!collectInputRemark.id) {
+    if (!wordRemarkInfo.id && (collectInputRemark.content || collectInputRemark.imgs?.length)) {
       let urls: string[] = [];
       if (collectInputRemark?.imgs && collectInputRemark?.imgs?.length) {
         urls = await uploadMultiBase64(collectInputRemark.imgs);
