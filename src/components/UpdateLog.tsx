@@ -4,6 +4,12 @@ export default function UpdateLog () {
   return (
     <div className="space-y-6">
       <div>
+      <div className="text-2xl font-bold">0.4.1 (2024-07-01)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>
+            修复添加空评论的bug
+          </li>
+        </ul>
         <div className="text-2xl font-bold">0.4.0 (2024-06-29)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>
