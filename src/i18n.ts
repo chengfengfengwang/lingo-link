@@ -81,7 +81,9 @@ const resources = {
       "Synchronization Status":"Synchronization Status",
       "EnginesTip":"Drag and drop to sort, the first one is the default service",
       "Update Log":"Update Log",
-      "Question":"Common Question"
+      "Question":"Common Question",
+      "Highlight Color": "Highlight Color",
+      "Highlight Style": "Highlight Style"
     },
   },
   zh: {
@@ -161,6 +163,8 @@ const resources = {
       "Update Log":"更新日志",
       "Question":"常见问题",
       "Clear All Settings": "恢复默认设置",
+      "Highlight Color": "高亮颜色",
+      "Highlight Style": "高亮样式"
     },
   },
 };

@@ -53,7 +53,9 @@ export const defaultSetting = {
   showSelectionIcon: true,
   interfaceLanguage: navigator.language === "en" ? "en" : "zh",
   autoPronounce: false,
-  triggerIconSize: 30,
+  triggerIconSize: 25,
+  highlightColor: "black",
+  highlightStyle: "dotted",
   // availableEngines: [
   //   {
   //     name: "Youdao",
@@ -339,3 +341,13 @@ export const enginePicArr = {
   moonshot:
     "https://qph.cf2.poecdn.net/main-thumb-pb-1160656-200-rzstcnvivfmlwjkijfkbhhpclcrjhopa.jpeg",
 };
+export const highlightStyles = [
+  'none',
+  'background',
+  'text',
+  'underline',
+  'double-underline',
+  'wavy',
+  'dotted',
+  'dashed'
+] as const
