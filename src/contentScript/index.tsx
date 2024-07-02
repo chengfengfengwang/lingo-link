@@ -2,13 +2,13 @@ import "@/lib/webcomponents-bundle.js";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import shadowDomStyle from "@/assets/styles/tailwind.css?inline";
-import contentScriptStyle from "@/assets/styles/contentScript.css?inline";
 import speakerStyle from "@/assets/styles/sperkerMotion.css?inline";
 import { useState, useEffect } from "react";
 
 import "@/lib/injectScripts";
 import "@/i18n.ts";
 import LingoCard from './lingoCard'
+import {genHighlightStyle} from "@/contentScript/highlightStyle.tsx";
 class LingoLink extends HTMLElement {
   constructor() {
     super();
@@ -43,7 +43,7 @@ if (!customElements.get("lingo-link")) {
   document.documentElement.appendChild(document.createElement("lingo-link"));
 }
 const style = document.createElement("style");
-style.innerText = contentScriptStyle;
+style.innerText = await genHighlightStyle();
 document.head.appendChild(style);
 
 export function SupportFullScreen() { 

@@ -80,6 +80,8 @@ export interface Setting {
   autoPronounce?: boolean;
   triggerIcon?: string;
   triggerIconSize?: number;
+  highlightColor?: string;
+  highlightStyle?: string;
   wenxinToken?: string;
   availableEngines?: EngineItem[]; // old
   wordEngineList?: EngineItem[];
