@@ -2,6 +2,14 @@ export default function UpdateLog() {
   return (
     <div className="space-y-6">
       <div>
+        <div className="text-2xl font-bold">0.5.0 (2024-07-02)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>
+            可以设置查词后自动保存生词了
+          </li>
+        </ul>
+      </div>
+      <div>
         <div className="text-2xl font-bold">0.4.2 (2024-07-02)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>

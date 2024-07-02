@@ -21,6 +21,8 @@ const resources = {
       "Native Language": "Native Language",
       "Display Trigger Icon After Highlighting Text":
         "Display Trigger Icon After Highlighting Text",
+      "Auto Save Word When Searching":
+        "Auto Save Word When Searching",
       "Automatically pronounce the word when looking it up":
         "Automatically pronounce the word when looking it up",
       "Trigger Icon":
@@ -164,7 +166,8 @@ const resources = {
       "Question":"常见问题",
       "Clear All Settings": "恢复默认设置",
       "Highlight Color": "高亮颜色",
-      "Highlight Style": "高亮样式"
+      "Highlight Style": "高亮样式",
+      "Auto Save Word When Searching": "查词后自动保存单词"
     },
   },
 };

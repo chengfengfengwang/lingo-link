@@ -34,7 +34,7 @@ export const addSwwAtom = atom(null,(get,set,sww:Sww) => {
   set(swwListAtom, [...get(swwListAtom), sww])
 })
 export const removeSwwAtom = atom(null,(get,set,sww:Sww) => {
-  removeWordApi(sww.id);
+  removeWordApi(sww.word);
   removeStorageWord({word: sww.word});
   removeWordOulu(sww.word)
   set(swwListAtom, get(swwListAtom).filter(item => item.id !== sww.id))

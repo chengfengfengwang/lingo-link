@@ -125,6 +125,29 @@ export default function Options() {
             />
           </div>
         </label>
+        <label>
+          <div className="font-semibold text-[17px] mb-2">
+            {t("Auto Save Word When Searching")}
+          </div>
+          <div className="flex items-center">
+            <input
+                type="checkbox"
+                onChange={(e) => {
+                  if (e.target.checked && !setting.userInfo) {
+                    showLogin()
+                  } else {
+                    setSetting({
+                      autoSaveWord: e.target.checked,
+                    });
+                  }
+                }}
+                checked={
+                    setting.autoSaveWord ?? defaultSetting.autoSaveWord
+                }
+                className="checkbox"
+            />
+          </div>
+        </label>
         <div>
           <div className="font-semibold text-[17px] mb-2">
             {t("Trigger Icon")}

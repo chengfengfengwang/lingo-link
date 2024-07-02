@@ -1,4 +1,4 @@
-import { getCollectWord } from "../utils";
+import { getCollectWord, isSameWord } from "../utils";
 import { useState, useEffect, useRef } from "react";
 import type { CommunityItemType, CommunityType, Sww } from "@/types/words";
 import Translate from "./Translate";
@@ -46,6 +46,7 @@ import {
   uploadMultiBase64,
 } from "@/api";
 import { useImmerAtom } from "jotai-immer";
+import { getSetting } from "@/storage/sync";
 
 export default function TranslateContent({
   searchText,
@@ -143,6 +144,34 @@ export default function TranslateContent({
       setCollectInputRemark({} as CollectRemarkInfo);
     }
   }, [searchText, setCollectInputRemark, remarkList]);
+  useEffect(()=>{
+    let ignore = false;
+    Promise.all([getSetting(), getLocal()]).then(res => {
+      if (ignore) {return}
+      const setting = res[0];
+      const swwList = res[1].swwList;
+      const isWordResult = isWord({
+        input: searchText,
+        lang: setting.sourceLanguage?.language,
+      });
+      if (!isWordResult) {return}
+      if (!setting.autoSaveWord) {return}
+      if (!setting.userInfo) {return}
+      if (!swwList?.find(item => isSameWord(item.word, searchText))) {        
+        const item = {
+          id: uuidv4(),
+          lastEditDate: Date.now(),
+          word: searchText,
+          context: currentSelectionInfo.context ?? searchText
+        };
+        addSww(item)
+      }
+    })
+     
+    return () => {
+      ignore = true
+    }
+  }, [searchText, addSww])
   const handleHeartClick = async () => {
     if (!setting.userInfo?.token) {
       if (isInPopup) {

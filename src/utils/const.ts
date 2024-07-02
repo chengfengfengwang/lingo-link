@@ -56,6 +56,7 @@ export const defaultSetting = {
   triggerIconSize: 25,
   highlightColor: "black",
   highlightStyle: "dashed" as HighlightName,
+  autoSaveWord: false,
   // availableEngines: [
   //   {
   //     name: "Youdao",

@@ -97,7 +97,8 @@ export interface Setting {
   deepLXAddress?:string;
   customAIAddress?:string;
   customAIModel?:string;
-  customAIKey?:string
+  customAIKey?:string;
+  autoSaveWord?:boolean
 }
 export interface Local {
   swwList?: Sww[];
