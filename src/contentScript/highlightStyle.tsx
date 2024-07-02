@@ -1,9 +1,9 @@
 import { getSetting } from "@/storage/sync"
-import {defaultSetting, highlightStyles} from "@/utils/const.ts";
+import {defaultSetting} from "@/utils/const.ts";
 
 export async function genHighlightStyle() {
   const selector = `.translate_learn_extension_mark`
-  const highlightStyle = (await getSetting()).highlightStyle ?? highlightStyles[0]
+  const highlightStyle = (await getSetting()).highlightStyle ?? defaultSetting.highlightStyle;
   const highlightColor = (await getSetting()).highlightColor ?? defaultSetting.highlightColor
   const baseStyleText = `visibility: visible !important;` // some website like reddit will have style :not(:defined):{visibility: hidden}
   let style = ''

@@ -55,7 +55,7 @@ export const defaultSetting = {
   autoPronounce: false,
   triggerIconSize: 25,
   highlightColor: "black",
-  highlightStyle: "dotted" as HighlightName,
+  highlightStyle: "dashed" as HighlightName,
   // availableEngines: [
   //   {
   //     name: "Youdao",
