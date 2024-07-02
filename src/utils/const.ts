@@ -55,7 +55,7 @@ export const defaultSetting = {
   autoPronounce: false,
   triggerIconSize: 25,
   highlightColor: "black",
-  highlightStyle: "dotted",
+  highlightStyle: "dotted" as HighlightName,
   // availableEngines: [
   //   {
   //     name: "Youdao",
@@ -351,3 +351,4 @@ export const highlightStyles = [
   'dotted',
   'dashed'
 ] as const
+export type HighlightName = (typeof highlightStyles)[number]

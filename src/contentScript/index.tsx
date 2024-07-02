@@ -42,9 +42,11 @@ if (!customElements.get("lingo-link")) {
   customElements.define("lingo-link", LingoLink);
   document.documentElement.appendChild(document.createElement("lingo-link"));
 }
-const style = document.createElement("style");
-style.innerText = await genHighlightStyle();
-document.head.appendChild(style);
+(async ()=>{
+  const style = document.createElement("style");
+  style.innerText = await genHighlightStyle();
+  document.head.appendChild(style);
+} )()
 
 export function SupportFullScreen() { 
   const [v, setV] = useState(0);

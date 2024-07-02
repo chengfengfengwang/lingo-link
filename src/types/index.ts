@@ -1,4 +1,4 @@
-import { LangCode, defaultSetting } from "@/utils/const";
+import { HighlightName, LangCode, defaultSetting } from "@/utils/const";
 import type { CommunityItemType, Sww } from "./words";
 
 // export interface ExtensionMessage {
@@ -81,7 +81,7 @@ export interface Setting {
   triggerIcon?: string;
   triggerIconSize?: number;
   highlightColor?: string;
-  highlightStyle?: string;
+  highlightStyle?: HighlightName;
   wenxinToken?: string;
   availableEngines?: EngineItem[]; // old
   wordEngineList?: EngineItem[];

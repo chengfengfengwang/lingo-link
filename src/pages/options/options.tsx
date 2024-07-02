@@ -1,6 +1,7 @@
 import type { InterfaceLanguage } from "@/types";
 import {
   AllLanguage,
+  HighlightName,
   LangCode,
   SourceLanguage,
   defaultSetting, highlightStyles,
@@ -165,14 +166,14 @@ export default function Options() {
             />
           </div>
         </label>
-        <label>
+        <div>
           <div className="font-semibold text-[17px] mb-2">
             {t("Highlight Color")}
           </div>
           <div className="flex items-center">
             <input
                 type="color"
-                className="rounded-sm"
+                className="rounded-sm cursor-pointer"
                 value={setting.highlightColor ?? defaultSetting.highlightColor}
                 onChange={(e) => {
                   setSetting({
@@ -181,7 +182,7 @@ export default function Options() {
                 }}
             />
           </div>
-        </label>
+        </div>
         <label>
           <div className="font-semibold text-[17px] mb-2">
             {t("Highlight Style")}
@@ -190,7 +191,7 @@ export default function Options() {
               value={setting.highlightStyle ?? defaultSetting.highlightStyle}
               onChange={(e) => {
                 setSetting({
-                  highlightStyle: e.target.value,
+                  highlightStyle: e.target.value as HighlightName,
                 });
               }}
               className="select select-bordered w-full"

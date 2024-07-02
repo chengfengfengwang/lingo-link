@@ -5,16 +5,16 @@ export async function genHighlightStyle() {
   const selector = `.translate_learn_extension_mark`
   const highlightStyle = (await getSetting()).highlightStyle ?? highlightStyles[0]
   const highlightColor = (await getSetting()).highlightColor ?? defaultSetting.highlightColor
-
+  const baseStyleText = `visibility: visible !important;` // some website like reddit will have style :not(:defined):{visibility: hidden}
   let style = ''
 
   switch (highlightStyle) {
     case 'none':
-      return ''
+      return baseStyleText
     case 'text':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       color: ${highlightColor};
     }
     `
@@ -22,7 +22,7 @@ export async function genHighlightStyle() {
     case 'background':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       color: white;
       background-color: ${highlightColor};
     }
@@ -31,7 +31,7 @@ export async function genHighlightStyle() {
     case 'dashed':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       text-decoration: underline dashed ${highlightColor};
     }
     `
@@ -39,7 +39,7 @@ export async function genHighlightStyle() {
     case 'dotted':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       text-decoration: underline dotted ${highlightColor} 0.2em;
     }
     `
@@ -47,7 +47,7 @@ export async function genHighlightStyle() {
     case 'underline':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       text-decoration: underline solid ${highlightColor} 0.15em;
     }
     `
@@ -55,7 +55,7 @@ export async function genHighlightStyle() {
     case 'double-underline':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       text-decoration: underline double ${highlightColor} 0.13em;
     }
     `
@@ -63,7 +63,7 @@ export async function genHighlightStyle() {
     case 'wavy':
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       text-decoration: underline wavy ${highlightColor};
     }
     `
@@ -71,7 +71,7 @@ export async function genHighlightStyle() {
     default:
       style += `
     ${selector} {
-      cursor: pointer;
+      ${baseStyleText}
       background-color: ${highlightColor};
     }
     `
