@@ -17,7 +17,7 @@ import browser from "webextension-polyfill";
 import type { Storage } from "webextension-polyfill";
 import { useAtom } from "jotai";
 import { settingAtom } from "@/store";
-
+import HotkeysInput from "./hotkeyInput";
 const defaultTriggerUrl = new URL(triggerIcon, import.meta.url).href;
 export default function Options() {
   const { t, i18n } = useTranslation();
@@ -125,6 +125,14 @@ export default function Options() {
             />
           </div>
         </label>
+        <div>
+          <div className="font-semibold text-[17px] mb-2">
+            {t("Translate after selecting text and pressing a shortcut key")}
+          </div>
+          <div className="flex items-center">
+            <HotkeysInput />
+          </div>
+        </div>
         <label>
           <div className="font-semibold text-[17px] mb-2">
             {t("Auto Save Word When Searching")}

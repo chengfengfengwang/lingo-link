@@ -2,11 +2,23 @@ export default function UpdateLog() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="text-2xl font-bold">0.5.0 (2024-07-02)</div>
+        <div className="text-2xl font-bold">0.6.0 (2024-07-07)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>
-            可以设置查词后自动保存生词了
+            <a
+              className="underline"
+              target="github"
+              href="https://github.com/chengfengfengwang/lingo-link/issues/10"
+            >
+              可以划词后按快捷键翻译了
+            </a>{" "}
           </li>
+        </ul>
+      </div>
+      <div>
+        <div className="text-2xl font-bold">0.5.0 (2024-07-02)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>可以设置查词后自动保存生词了</li>
         </ul>
       </div>
       <div>
