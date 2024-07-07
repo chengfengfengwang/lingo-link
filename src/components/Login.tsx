@@ -140,6 +140,7 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
                   placeholder={t("Email")}
                   type="email"
                   required
+                  autoComplete="username"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -149,6 +150,7 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
                   placeholder={t("Password")}
                   type="password"
                   required
+                  autoComplete="current-password"
                   className="input input-bordered w-full"
                 />
               </label>

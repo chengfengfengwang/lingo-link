@@ -74,7 +74,7 @@ export const getSwwList = async (): Promise<{ list: Sww[] } | undefined> => {
   });
 };
 export const removeWordApi = async (word: string) => {
-  return request(`/word/delete/${word}`, {
+  return request(`/word/delete/${encodeURIComponent(word)}`, {
     method: "DELETE",
   });
 };
