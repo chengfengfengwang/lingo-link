@@ -20,7 +20,7 @@ export default function useTreeWalker(
 
   useEffect(()=>{
     
-    if (isExtentionPage || checkIfIgnore() || walkerWords.length===0) {      
+    if (isExtentionPage || checkIfIgnore()) {      
       return;
     }
     
