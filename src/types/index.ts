@@ -98,7 +98,8 @@ export interface Setting {
   customAIAddress?:string;
   customAIModel?:string;
   customAIKey?:string;
-  autoSaveWord?:boolean
+  autoSaveWord?:boolean;
+  shoutcut?:string
 }
 export interface Local {
   swwList?: Sww[];

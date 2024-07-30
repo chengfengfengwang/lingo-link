@@ -21,6 +21,8 @@ const resources = {
       "Native Language": "Native Language",
       "Display Trigger Icon After Highlighting Text":
         "Display Trigger Icon After Highlighting Text",
+      "Translate after selecting text and pressing a shortcut key":
+        "Translate after selecting text and pressing a shortcut key",
       "Auto Save Word When Searching":
         "Auto Save Word When Searching",
       "Automatically pronounce the word when looking it up":
@@ -107,6 +109,8 @@ const resources = {
       "Language to be Translated": "需要翻译的语言",
       "Native Language": "母语",
       "Display Trigger Icon After Highlighting Text": "划词后是否显示按钮",
+      "Translate after selecting text and pressing a shortcut key":
+        "划词后按快捷键翻译",
       "Automatically pronounce the word when looking it up":
         "查询单词时自动发音",
       "Trigger Icon": "触发图标",

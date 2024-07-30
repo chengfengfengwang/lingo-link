@@ -27,6 +27,7 @@ import onCaptureScreenResult from "@/utils/onCaptureScreenResult";
 import { useAtom } from "jotai";
 import useTreeWalker from "@/hooks/useTreeWalker";
 import useContentScriptMessage from "@/hooks/useContentScriptMessage";
+import hotkeys from "hotkeys-js";
 // export default function ConversationProviderWrapper() {
 //   return (
 //     <ConversationProvider>
@@ -101,7 +102,6 @@ export default function ContentScriptApp() {
   );
   const mouseoverCollectCallback = useCallback(
     ({ ele }: { ele: HTMLElement }) => {
-     
       if (mouseoverCollectTimer.current) {
         clearTimeout(mouseoverCollectTimer.current);
       }
@@ -125,7 +125,23 @@ export default function ContentScriptApp() {
   useTreeWalker({
     mouseoverCallback: mouseoverCollectCallback,
     mouseoutCallback: mouseoutCollectCallback,
-  })
+  });
+  useEffect(() => {
+    const translate = () => {      
+      showCardAndPosition({
+        text: currentSelectionInfo.word,
+        domRect: rangeRef.current!.getBoundingClientRect(),
+      });
+    };
+    if (setting.shoutcut) {
+      hotkeys(setting.shoutcut, translate);
+    }
+    return () => {
+      if (setting.shoutcut) {
+        hotkeys.unbind();
+      }
+    };
+  }, [setting.shoutcut, showCardAndPosition]);
   useEffect(() => {
     const handleMouseUp = async function (event: MouseEvent) {
       if (isSelectionInEditElement()) {
@@ -177,7 +193,7 @@ export default function ContentScriptApp() {
     };
   }, []);
   useEffect(() => {
-    const hideCard = ()=> setCardShow(false);
+    const hideCard = () => setCardShow(false);
     emitter.on("hideCard", hideCard);
     return () => {
       emitter.off("hideCard", hideCard);
@@ -198,7 +214,7 @@ export default function ContentScriptApp() {
   const hideCard = useCallback(() => {
     setCardShow(false);
   }, []);
- 
+
   useEffect(() => {
     if (setting.interfaceLanguage !== i18n.language) {
       i18n.changeLanguage(
@@ -281,7 +297,7 @@ export default function ContentScriptApp() {
             onClose={hideCard}
             onmouseenter={onmouseenterCard}
           >
-            <SearchResult  searchText={searchText} />
+            <SearchResult searchText={searchText} />
           </CardDragableWrapper>
         )}
       </ErrorBoundary>
