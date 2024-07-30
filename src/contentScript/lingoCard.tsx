@@ -114,11 +114,17 @@ export default function ContentScriptApp() {
     },
     [showCardAndPosition]
   );
+  const mouseoutCollectCallback = useCallback(() => {
+    if (mouseoverCollectTimer.current && ! cardShow) {
+      clearTimeout(mouseoverCollectTimer.current);
+    }
+  }, [cardShow]);
   const onmouseenterCard = useCallback(() => {
     hideCardTimer.current && clearTimeout(hideCardTimer.current);
-  }, []);  
+  }, []);
   useTreeWalker({
-    mouseoverCallback: mouseoverCollectCallback
+    mouseoverCallback: mouseoverCollectCallback,
+    mouseoutCallback: mouseoutCollectCallback,
   })
   useEffect(() => {
     const handleMouseUp = async function (event: MouseEvent) {
