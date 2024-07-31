@@ -1,3 +1,6 @@
+## Plan
+- [ ] You can look up and translate words in YouTube subtitles.
+
 ## Download
 - [Chrome Browser](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
 - [Edge Browser](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)

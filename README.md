@@ -1,6 +1,9 @@
 
 简体中文 ｜ [English](README_EN.md)
 
+## 计划
+- [ ] 可以对YouTube字幕进行查词翻译
+
 ## 商店下载
 - [chrome 浏览器](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
 - [edge 浏览器](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
