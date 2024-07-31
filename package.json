@@ -1,7 +1,7 @@
 {
   "name": "lingo-link",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "scripts": {
     "dev:edge": "cross-env  BUILD_TARGET=edge vite",

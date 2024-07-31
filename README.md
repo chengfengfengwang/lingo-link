@@ -1,9 +1,6 @@
 
 简体中文 ｜ [English](README_EN.md)
 
-## 计划
-- [ ] 可以对YouTube字幕进行查词翻译
-
 ## 商店下载
 - [chrome 浏览器](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
 - [edge 浏览器](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
@@ -15,6 +12,8 @@ lingo link是一个浏览器插件，主要功能是划词翻译，希望能够�
 - 翻译：有道翻译、Google翻译、OpenAI、Gemi、moonshot、deepseek等，大模型翻译需要自备apikey
 - 生词标记：收藏过的生词会在网页中被标记
 - 生词同步：生词数据可本地化、也支持将生词同步到欧路词典、内置账号系统将生词同步至服务端
+## 计划
+- [ ] 可以对YouTube字幕进行查词翻译
 ## 本地下载
 1. 点击 Releases
 2. 下载解压 source code

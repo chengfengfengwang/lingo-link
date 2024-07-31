@@ -2,6 +2,20 @@ export default function UpdateLog() {
   return (
     <div className="space-y-6">
       <div>
+        <div className="text-2xl font-bold">0.6.1 (2024-07-31)</div>
+        <ul className="mt-2 list-inside list-decimal">
+          <li>
+            <a
+              className="underline"
+              target="github"
+              href="https://github.com/chengfengfengwang/lingo-link/pull/16"
+            >
+              Added a mouseout callback to clear the card show timeout if the card is not currently shown. This prevents the card from unexpectedly appearing when the user accidentally hovers over the highlight word.
+            </a>{" "}
+          </li>
+        </ul>
+      </div>
+      <div>
         <div className="text-2xl font-bold">0.6.0 (2024-07-07)</div>
         <ul className="mt-2 list-inside list-decimal">
           <li>

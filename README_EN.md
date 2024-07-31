@@ -1,5 +1,3 @@
-## Plan
-- [ ] You can look up and translate words in YouTube subtitles.
 
 ## Download
 - [Chrome Browser](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
@@ -12,7 +10,8 @@ Lingo Link is a browser extension primarily designed for translation of selected
 - Word Lookup: Youdao Dictionary Simplified, Youdao Dictionary Collins
 - Translation: Youdao Translation, Google Translation, OpenAI, Gemi, Moonshot, Deepseek, etc. Large model translations require an API key.
 - Vocabulary Marking: Collected new words will be marked on the webpage.
-
+## Plan
+- [ ] You can look up and translate words in YouTube subtitles.
 ## Development
 ```
 npm install
