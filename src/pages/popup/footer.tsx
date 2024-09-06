@@ -47,9 +47,9 @@ export default function PopupFooter({ user }: { user: Setting["userInfo"] }) {
 
     const message: ExtensionMessage = { type: "refreshLocalData" };
     browser.runtime.sendMessage(message);
-    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    const [tab] = await browser.tabs.query({active: true, lastFocusedWindow: true});
     if (tab.id) {
-      chrome.tabs.sendMessage(tab.id, message);
+      browser.tabs.sendMessage(tab.id, message);
     }
     setRefetchLoading(false);
 

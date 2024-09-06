@@ -3,7 +3,31 @@ import react from '@vitejs/plugin-react'
 import { crx } from "@crxjs/vite-plugin";
 import manifestConfig from "./manifest.config";
 import { resolve } from "path";
-// https://vitejs.dev/config/
+
+let buildOptions = {};
+const browserTarget = process.env.BUILD_TARGET;
+if (browserTarget === 'firefox') {
+  buildOptions = {
+    outDir: 'dist/firefox',
+    rollupOptions: {
+      input: {
+        background: "background.html",
+      }
+    }
+  }
+} 
+if (browserTarget === 'chrome') {
+  buildOptions = {
+    outDir: 'dist/chrome'
+  }
+} 
+if (browserTarget === 'edge') {
+  buildOptions = {
+    outDir: 'dist/edge'
+  }
+} 
+
+
 export default defineConfig({
   plugins: [react(), crx({ manifest: manifestConfig })],
   server: {
@@ -14,4 +38,5 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
+  build: buildOptions
 })
