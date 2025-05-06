@@ -1,6 +1,7 @@
 
 简体中文 ｜ [English](README_EN.md)
-
+## ⚠️ 项目已停止维护 / Project Unmaintained ⚠️
+由于个人精力原因，本项目已停止维护。欢迎移步我的另一个主要维护项目：[布偶阅读](https://ragdoll.lingolink.xyz/)
 ## 商店下载
 - [chrome 浏览器](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
 - [edge 浏览器](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
