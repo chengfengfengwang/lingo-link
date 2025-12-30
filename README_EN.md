@@ -1,6 +1,5 @@
 
 ## ⚠️ 项目已停止维护 / Project Unmaintained ⚠️
-Welcome to my other main maintained project: [ragdoll-reader](https://ragdoll.lingolink.xyz/)
 ## Download
 - [Chrome Browser](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
 - [Edge Browser](https://microsoftedge.microsoft.com/addons/detail/llmpcnfgcldhpheamlkfagokdlmolmnm)
