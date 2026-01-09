@@ -1,6 +1,6 @@
 
 简体中文 ｜ [English](README_EN.md)
-## ⚠️ 项目已停止维护 / Project Unmaintained ⚠️
+## ⚠️ 本项目已停止维护，如果有兴趣可以看我的另一个项目 [StarryLingo](https://starrylingo.com)
 由于个人精力原因，本项目已停止维护
 ## 商店下载
 - [chrome 浏览器](https://chromewebstore.google.com/detail/lingo-link/ahhlnchdiglcghegemaclpikmdclonmo)
